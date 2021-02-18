@@ -1,0 +1,9 @@
+version: '3'
+services:
+  nextdhcp:
+    image: ponta865/nextdhcp:latest
+    container_name: nextdhcp
+    command: -conf /opt/Dhcpfile
+    volumes:
+      - ./conf:/opt
+    network_mode: host
