@@ -14,10 +14,11 @@ jobs:
 
     steps:
     - name: Set current date as env variable
-      run: echo "IMAGE_TAG::$(date +%s)" >> $GITHUB_ENV
+      run: echo '::set-output name=tag::$(date +%s)'
+      id: tag
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ponta865/nextdhcp:$IMAGE_TAG
+      run: docker build . --file Dockerfile --tag ponta865/nextdhcp:${{ steps.tag.outputs.tag }}
     - name: Log in to Docker Hub
       uses: docker/login-action@v1
       with:
@@ -27,4 +28,4 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ponta865/nextdhcp:$IMAGE_TAG
+        tags: ponta865/nextdhcp:${{ steps.tag.outputs.tag }}
