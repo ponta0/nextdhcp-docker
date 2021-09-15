@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: Set current date as env variable
-      run: echo `::set-output name=tag::$(date +%s)`
+      run:  tag=`date +'%s'` && echo "::set-output name=tag::${tag}"
       id: tag
     - uses: actions/checkout@v2
     - name: Build the Docker image
