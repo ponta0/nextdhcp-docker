@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ponta865/nextdhcp-docker:$(date +%s)
+      run: docker build . --file Dockerfile --tag ponta865/nextdhcp:$(date +%s)
     - name: Log in to Docker Hub
       uses: docker/login-action@v1
       with:
@@ -25,4 +25,4 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ponta865/nextdhcp-docker:latest
+        tags: ponta865/nextdhcp:latest
