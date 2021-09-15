@@ -13,9 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Set current date as env variable
+      run: echo "IMAGE_TAG::$(date +%s)" >> $GITHUB_ENV
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ponta865/nextdhcp:$(date +%s)
+      run: docker build . --file Dockerfile --tag ponta865/nextdhcp:$IMAGE_TAG
     - name: Log in to Docker Hub
       uses: docker/login-action@v1
       with:
@@ -25,4 +27,4 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ponta865/nextdhcp:latest
+        tags: ponta865/nextdhcp:$IMAGE_TAG
